@@ -1,0 +1,49 @@
+Document = Blocks | eof;
+Blocks = Block ( Emptys Blocks | eof );
+Emptys = empty { empty };
+Block = Paragraph | Header | Blockquote | List | Codeblock | HorizontalLine;
+Paragraph = TEXT { TEXT };
+H1 = HASH TEXT;
+H2 = HASH HASH TEXT;
+H3 = HASH HASH HASH TEXT;
+H4 = HASH HASH HASH HASH TEXT;
+H5 = HASH HASH HASH HASH HASH TEXT;
+H6 = HASH HASH HASH HASH HASH HASH TEXT;
+Blockquote = GREATERTHAN TEXT;
+List = DASH TEXT;
+checkbox = DASH LBRACKET RBRACKET TEXT;
+Codeblock = BACKTICK BACKTICK BACKTICK Paragraph BACKTICK BACKTICK BACKTICK
+HorizontalLine = Underscore Underscore Underscore {Underscore}
+Link = LBRACKET TEXT RBRACKET LPAREN URL RPAREN;
+Code =  LESSTHAN TEXT GREATERTHAN;
+Image = BANG LBRACKET TEXT RBRACKET LPAREN URL RPAREN;
+Emphasize = Bold | Italic;
+Bold = Asterik Asterik String Asterik Asterik |
+        Underscore Underscore String Underscore Underscore;
+Italic = Asterik TEXT Asterik | Underscore TEXT Underscore;
+
+TEXT = { VisibleCharacter };
+VisibleCharacter = Unicode | Others | Alphanum | Escaped | InlineWhitespace;
+Escaped = Backslash Special;
+Unicode = "&" Alphanum Alphanum Alphanum Alphanum ";";
+Alphanum = ( Alphabet | Digit );
+Alphabet = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" |
+            "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" |
+            "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" |
+            "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" |
+            "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" |
+            "y" | "z";
+Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+LPAREN = "(";
+RPAREN = ")";
+UNDERSCORE = "_";
+LBRACKET = "[";
+RBRACKET= "]";
+BACKTICK= "`";
+ASTERIK= "*";
+GREATERTHAN= ">";
+LESSTHAN= "<";
+NEWLINE= "\n";
+DASH = "-";
+HASH = "#";
+BANG= "!";
